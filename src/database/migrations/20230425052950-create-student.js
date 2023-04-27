@@ -25,7 +25,12 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       academy_id: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Academies",
+          key: "id",
+        },
+        onDelete: "cascade",
       }
     });
   },
