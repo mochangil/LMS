@@ -11,6 +11,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Lecture.belongsTo(models.Class,{
+        as: "Classes",
+        foreignKey: "class_id",
+        onDelete: "cascade",
+      });
     }
   }
   Lecture.init({
