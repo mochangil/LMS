@@ -11,9 +11,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Class.belongsTo(models.Academy,{
+      Teacher.belongsTo(models.Academy,{
         as: "Academies",
         foreignKey: "academy_id",
+        onDelete: "cascade",
+      });
+      this.hasMany(models.Class, {
+        as: "Classes",
+        foreignKey: "class_id",
         onDelete: "cascade",
       });
     }
