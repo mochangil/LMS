@@ -2,21 +2,26 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Lectures', {
+    await queryInterface.createTable('Notices', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      title: {
+      context: {
         type: Sequelize.STRING
       },
-      link: {
+      endDate: {
         type: Sequelize.STRING
       },
       class_id: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Classes",
+          key: "id",
+        },
+        onDelete: "cascade"
       },
       createdAt: {
         allowNull: false,
@@ -29,6 +34,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Lectures');
+    await queryInterface.dropTable('Notices');
   }
 };
