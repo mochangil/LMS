@@ -31,6 +31,11 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "class_id",
         onDelete: "cascade",
       });
+      this.hasMany(models.Notice, {
+        as: "Notices",
+        foreignKey: "class_id",
+        onDelete: "cascade",
+      });
     }
   }
   Class.init({
