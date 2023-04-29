@@ -16,6 +16,21 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "academy_id",
         onDelete: "cascade",
       });
+      Class.belongsTo(models.Teacher,{
+        as: "Teachers",
+        foreignKey: "teacher_id",
+        onDelete: "cascade",
+      });
+      this.hasMany(models.Student, {
+        as: "Students",
+        foreignKey: "class_id",
+        onDelete: "cascade",
+      });
+      this.hasMany(models.Lecture, {
+        as: "Lectures",
+        foreignKey: "class_id",
+        onDelete: "cascade",
+      });
     }
   }
   Class.init({
