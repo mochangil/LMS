@@ -12,8 +12,13 @@ const getAcademies = async (req,res,next) =>{
 
 const getAcademy = async (req,res,next) => {
     try{
-        const id = req.params.id;
-        const academy = await models.Academy.findOne({id});
+        const myId = req.params.id;
+        const myName = req.params.name;
+        const academy = await models.Academy.findOne({
+            where: {
+                id : myId
+            }
+        });
         res.send(academy);
     }catch(err){
         next(err)
@@ -27,9 +32,9 @@ const createAcademy = async (req,res,next) => {
         const newAcademy = models.Academy.build({name: req.params.name});
         newAcademy.set({
             id: counts+1,
-            logo: req.params.logo,
-            name: req.params.name,
-            theme_id: req.params.theme_id
+            logo: req.body.logo,
+            name: req.body.name,
+            theme_id: req.body.theme_id
         });
         await newAcademy.save();
         res.send("ok");
@@ -38,8 +43,27 @@ const createAcademy = async (req,res,next) => {
     }
 }
 
+const deleteAcademy = async (req,res,next) => {
+    try{
+        const myId = req.body.id;
+        const myName = req.body.name;
+        console.log(myId)
+        // const name = req.params.name;
+        await models.Academy.destroy({
+            where: {
+                id: myId
+            }
+        });
+        res.send("delete ok")
+        
+    }catch(err){
+        next(err)
+    }
+}
+
 module.exports = {
     getAcademies,
     getAcademy,
     createAcademy,
+    deleteAcademy,
 };
