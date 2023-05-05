@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
     word: DataTypes.STRING,
     meaning: DataTypes.STRING,
     chapter: DataTypes.INTEGER,
-    academy_id: DataTypes.INTEGER
+    // academy_id: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Word',

@@ -21,10 +21,10 @@ module.exports = {
       phoneNumber: {
         type: Sequelize.STRING
       },
-      class_id: {
+      classroom_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: "Classes",
+          model: "classrooms",
           key: "id",
         },
         onDelete: "cascade",
