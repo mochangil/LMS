@@ -12,9 +12,10 @@ const getTeachers = async (req,res,next) =>{
 
 const createTeacher = async (req,res,next) =>{
     try{
+        console.log(req.body.name);
         console.log("connected")
         const counts = await models.Teacher.max('id');
-        const newTeacher = models.Teacher.build({name: req.params.name});
+        const newTeacher = models.Teacher.build({name: req.body.name});
         newTeacher.set({
             id: counts+1,
             name: req.body.name,

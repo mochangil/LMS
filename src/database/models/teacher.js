@@ -16,9 +16,9 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "academy_id",
         onDelete: "cascade",
       });
-      this.hasMany(models.Class, {
-        as: "Classes",
-        foreignKey: "class_id",
+      this.hasMany(models.Classroom, {
+        as: "Classrooms",
+        foreignKey: "classroom_id",
         onDelete: "cascade",
       });
     }
@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     age: DataTypes.INTEGER,
     phoneNumber: DataTypes.STRING,
-    academy_id: DataTypes.STRING
+    // academy_id: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Teacher',

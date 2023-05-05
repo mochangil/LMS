@@ -16,9 +16,9 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "academy_id",
         onDelete: "cascade",
       });
-      Student.belongsTo(models.Class,{
-        as: "Classes",
-        foreignKey: "class_id",
+      Student.belongsTo(models.Classroom,{
+        as: "Classrooms",
+        foreignKey: "classroom_id",
         onDelete: "cascade",
       });
     }
@@ -33,8 +33,8 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     age: DataTypes.INTEGER,
     phoneNumber: DataTypes.STRING,
-    class_id: DataTypes.INTEGER,
-    academy_id: DataTypes.STRING
+    // classroom_id: DataTypes.INTEGER,
+    // academy_id: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Student',

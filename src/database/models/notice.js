@@ -11,9 +11,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Notice.belongsTo(models.Class,{
-        as: "Classes",
-        foreignKey: "class_id",
+      Notice.belongsTo(models.Classroom,{
+        as: "Classrooms",
+        foreignKey: "classroom_id",
         onDelete: "cascade",
       });
     }
@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     context: DataTypes.STRING,
     endDate: DataTypes.STRING,
-    class_id: DataTypes.INTEGER
+    // classroom_id: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Notice',

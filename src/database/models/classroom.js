@@ -3,42 +3,38 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Class extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
+  class Classroom extends Model {
+
     static associate(models) {
       // define association here
-      Class.belongsTo(models.Academy,{
+      Classroom.belongsTo(models.Academy,{
         as: "Academies",
         foreignKey: "academy_id",
         onDelete: "cascade",
       });
-      Class.belongsTo(models.Teacher,{
+      Classroom.belongsTo(models.Teacher,{
         as: "Teachers",
         foreignKey: "teacher_id",
         onDelete: "cascade",
       });
       this.hasMany(models.Student, {
         as: "Students",
-        foreignKey: "class_id",
+        foreignKey: "classroom_id",
         onDelete: "cascade",
       });
       this.hasMany(models.Lecture, {
         as: "Lectures",
-        foreignKey: "class_id",
+        foreignKey: "classroom_id",
         onDelete: "cascade",
       });
       this.hasMany(models.Notice, {
         as: "Notices",
-        foreignKey: "class_id",
+        foreignKey: "classroom_id",
         onDelete: "cascade",
       });
     }
   }
-  Class.init({
+  Classroom.init({
     id: {
       primaryKey: true,
       autoIncrement: true,
@@ -47,16 +43,16 @@ module.exports = (sequelize, DataTypes) => {
     name: {
       type: DataTypes.STRING,
     },
-    academy_id: {
-      type:DataTypes.INTEGER,
-    },
-    teacher_id: {
-      type: DataTypes.INTEGER,
-    }
+    // academy_id: {
+    //   type:DataTypes.INTEGER,
+    // },
+    // teacher_id: {
+    //   type: DataTypes.INTEGER,
+    // }
   }, {
     sequelize,
-    modelName: 'Class',
+    modelName: 'Classroom',
     timestamps: false,
   });
-  return Class;
+  return Classroom;
 };

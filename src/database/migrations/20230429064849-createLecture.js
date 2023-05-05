@@ -15,10 +15,10 @@ module.exports = {
       link: {
         type: Sequelize.STRING
       },
-      class_id: {
+      classroom_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: "Classes",
+          model: "Classrooms",
           key: "id",
         },
         onDelete: "cascade",
