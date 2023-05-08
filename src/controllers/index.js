@@ -1,6 +1,6 @@
 const memberController = require('./memberController')
-const academyController = require('./academy/academyController')
-const classroomController = require('./class/classroomController')
+const academyController = require('./academyController')
+const classroomController = require('./classroomController')
 
 module.exports = {
     memberController,
