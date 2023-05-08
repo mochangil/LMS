@@ -56,19 +56,21 @@ const createStudent = async (req,res,next) =>{
     try{
         console.log("connected")
         cnt = await models.Student.count();
-        if (cnt!=0) {
+        if (cnt==0) {
             cnt = 1
         }
         else{
             cnt = await models.Student.max('id');
         }
-        const newStudent = models.Student.build({name: req.params.name});
+        console.log(cnt)
+        const newStudent = models.Student.build({name: req.body.name});
         newStudent.set({
             id: cnt+1,
-            name: req.body.name,
             password: req.body.password,
+            name: req.body.name,
             age: req.body.age,
             phoneNumber: req.body.phoneNumber,
+            classroom_id: req.body.classroom_id,
             academy_id: req.body.academy_id,
         })
         await newStudent.save();

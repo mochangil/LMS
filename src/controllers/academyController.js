@@ -1,4 +1,4 @@
-const models = require('../../database/models');
+const models = require('../database/models');
 
 const getAcademies = async (req,res,next) =>{
     try{
