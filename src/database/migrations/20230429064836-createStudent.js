@@ -36,7 +36,13 @@ module.exports = {
           key: "id",
         },
         onDelete: "cascade",
-      }
+      },
+      snsId: {
+        type: Sequelize.STRING
+      },
+      provider: {
+        type: Sequelize.STRING
+      },
     });
   },
   async down(queryInterface, Sequelize) {

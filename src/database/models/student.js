@@ -33,6 +33,8 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     age: DataTypes.INTEGER,
     phoneNumber: DataTypes.STRING,
+    snsId: DataTypes.INTEGER,
+    provider: DataTypes.STRING
     // classroom_id: DataTypes.INTEGER,
     // academy_id: DataTypes.STRING
   }, {

@@ -7,14 +7,28 @@ const dotenv = require('dotenv');
 const session = require('express-session')
 const morgan = require('morgan')
 const cookieParser = require('cookie-parser')
+const passport = require('passport');
+const passportConfig = require('./src/passport')
 //index 파일을 불러오지 않았음에도 index를 최우선으로 찾아 시행
 const indexRouter = require('./src/routes');
 
 dotenv.config();
+passportConfig();
 
 models.sequelize.sync().then(()=> {console.log('connected database')}).catch(err => {console.err('occurred error in database connecting ',err)});
 
 app.set('port', process.env.PORT || 3000);
+
+app.use(session({
+    resave: false,
+    saveUninitialized: false,
+    secret: process.env.COOKIE_SECRET,
+    cookie: {
+        httpOnly: true,
+        secure: false,
+    },
+}))
+
 //javascript 쉬운 함수 호출법 (param1, parma2) => {return될 값}
 //router
 //app.get, post, put 등등
@@ -27,19 +41,12 @@ app.use(
     express.json(),
     express.urlencoded({ extended: false }),
     //쿠키정보를 request 객체에 보기 쉬운 형태로 만들어 넘겨준다.
-    cookieParser(process.env.COOKIE_SECRET)
+    cookieParser(process.env.COOKIE_SECRET),
+    passport.initialize(),
+    passport.session()
 );
-app.use('/', indexRouter);
 
-app.use(session({
-    resave: false,
-    saveUninitialized: false,
-    secret: process.env.COOKIE_SECRET,
-    cookie: {
-        httpOnly: true,
-        secure: false,
-    },
-}))
+app.use('/', indexRouter);
 
 app.listen(app.get('port'), () => {
     console.log(app.get('port'), 'app is listening at port 3000!');

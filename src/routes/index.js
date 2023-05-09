@@ -7,6 +7,7 @@ const classroomRouter = require('./classroomRouter')
 const lectureRouter = require('./lectureRouter')
 const noticeRouter = require('./noticeRouter')
 const wordRouter = require('./wordRouter')
+const auth = require('./auth')
 
 // GET / 라우터
 // router.get('/', (req, res) => {
@@ -18,5 +19,7 @@ router.use('/academies', academyRouter)
 router.use("/classrooms", classroomRouter);
 router.use("/notices", noticeRouter);
 router.use("/lectures", lectureRouter);
-router.use("/words", wordRouter)
+router.use("/words", wordRouter);
+// router.post('/login', passport.authenticate('local', {successRedirect: '/', failureRedirect: '/login'}));
+router.use("/auth", auth);
 module.exports = router;
