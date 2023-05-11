@@ -206,6 +206,28 @@ const updateStudent = async (req,res,next) => {
         next(err)
     }
 }
+
+const deleteStudent = async (req,res,next) => {
+    try{
+        const myId = req.body.id;
+        const myName = req.body.name;
+        console.log(myId)
+        // const name = req.params.name;
+        await models.Student.destroy({
+            where: {
+                id: myId
+            }
+        });
+        await models.User.destroy({
+            where: {
+                id:myId
+            }
+        });
+        res.send("delete ok")
+    }catch(err){
+        next(err)
+    }
+}
 module.exports = {
     getUsers,
     getTeachers,
@@ -217,4 +239,5 @@ module.exports = {
     createStudent,
     getStudents,
     updateStudent,
+    deleteStudent,
 };
