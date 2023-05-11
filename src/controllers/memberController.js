@@ -1,9 +1,70 @@
 const models = require('../database/models');
 
+function findUserById(myId){
+    return models.User.findOne({where:{id:myId}})
+}
+
+function findStudentById(myId){
+    return models.Student.findOne({where:{id:myId}})
+}
+
+function findTeacherById(myId){
+    return models.Teacher.findOne({where:{id:myId}})
+}
+
+function filtering(req){
+    var filtered=[];
+    var q={};
+    for(queryName in req.query){
+        var columnName = queryName;
+        var k;
+        var v = req.query[queryName];
+        if (typeof v == "string"){
+            var pos = v.indexOf(":");
+            if(pos>0){
+                k = v.substring(0,pos);
+                v = v.substring(pos+1);
+                q[k]=v;
+            }    
+        }
+            // else if (Array.isArray(v)){
+            //     for(var index = 0; index < v.length; index++){
+            //         var ark = "eq";
+            //         var arv = v[index];
+            //         var pos = arv.indexOf(":");
+            //         if (pos>0){
+            //             ark = arv.substr(0,pos);
+            //             arv = arv.substring(pos+1);
+            //         }
+            //     }
+            // }
+        return q;
+    }
+    return filtered;
+}
+
+const getUsers = async (req,res,next) =>{
+    try{
+        const users = await models.User.findAll();
+        res.send(users);
+    } catch(err){
+        next(err);
+    }
+}
+
 const getTeachers = async (req,res,next) =>{
     try{
-        const teachers = await models.Teacher.findAll();
-        res.send(teachers);
+        // var filteredBoardList = filtering(req,boardList);
+        if (Object.keys(req.query).length == 0){
+            var teachers = await models.Teacher.findAll();
+            res.send(teachers);
+        }
+        else{
+            var q = filtering(req);
+            console.log(q)
+            res.send("ok");
+        }
+
     }
     catch (err){
         next(err);
@@ -13,16 +74,17 @@ const getTeachers = async (req,res,next) =>{
 const createTeacher = async (req,res,next) =>{
     try{
         console.log(req.body.name);
-        console.log("connected")
-        const counts = await models.Teacher.max('id');
-        const newTeacher = models.Teacher.build({name: req.body.name});
+        console.log("connected") 
+        const user = await findUserById(req.body.id);
+        const newTeacher = models.Teacher.build({id: req.body.id});
         newTeacher.set({
-            id: counts+1,
-            name: req.body.name,
-            email: req.body.email,
-            password: req.body.password,
+            email: user.email,
+            password: user.password,
+            name: user.name,
             age: req.body.age,
             phoneNumber: req.body.phoneNumber,
+            snsId: user.snsId,
+            provider: user.provider,
             academy_id: req.body.academy_id
         })
         await newTeacher.save();
@@ -42,6 +104,26 @@ const getTeacher = async (req,res,next) => {
     }
 }
 
+
+//authenticated 검증필요
+const updateTeacher = async (req,res,next) => {
+    try{
+        const filters = req.body;
+        console.log(filters);
+        const myId = req.body.id;
+        const teacher = await models.Teacher.findOne({where:{id:myId}});
+        teacher.set({
+            phoneNumber: req.body.phoneNumber,
+            age: req.body.age,
+            academy_id: req.body.academy_id,
+        })
+        await teacher.save();
+        res.send(teacher);
+    } catch(err){
+        next(err)
+    }
+}
+
 const getStudents = async (req,res,next) =>{
     try{
         const student = await models.Student.findAll();
@@ -54,27 +136,22 @@ const getStudents = async (req,res,next) =>{
 
 const createStudent = async (req,res,next) =>{
     try{
+        const user = await findUserById(req.body.id);
         console.log("connected")
-        cnt = await models.Student.count();
-        if (cnt==0) {
-            cnt = 1
-        }
-        else{
-            cnt = await models.Student.max('id');
-        }
-        console.log(cnt)
-        const newStudent = models.Student.build({name: req.body.name});
-        newStudent.set({
-            id: cnt+1,
-            password: req.body.password,
-            name: req.body.name,
+        const student = models.Student.build({id:user.id});
+        student.set({
+            email: user.email,
+            password: user.password,
+            name: user.name,
             age: req.body.age,
             phoneNumber: req.body.phoneNumber,
+            snsId: user.snsId,
+            provider: user.provider,
             classroom_id: req.body.classroom_id,
             academy_id: req.body.academy_id,
         })
-        await newStudent.save();
-        res.send(newStudent);
+        await student.save();
+        res.send(student);
     } catch (err){
         next(err);
     }
@@ -89,11 +166,32 @@ const getStudent = async (req,res,next) => {
         next(err)
     }
 }
+
+//authenticated 필요 - 기존정보는 그대로 전달하는 방식으로
+const updateStudent = async (req,res,next) => {
+    try{
+        const student = await findStudentById(req.body.id);
+        console.log(student);
+        student.set({
+            phoneNumber:req.body.phoneNumber,
+            age: req.body.age,
+            classroom_id: req.body.classroom_id,
+            academy_id: req.body.academy_id,
+        })
+        await student.save();
+        res.send(student);
+    } catch(err){
+        next(err)
+    }
+}
 module.exports = {
+    getUsers,
     getTeachers,
     createTeacher,
     getTeacher,
+    updateTeacher,
     getStudent,
     createStudent,
-    getStudents
+    getStudents,
+    updateStudent,
 };

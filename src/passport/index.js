@@ -13,7 +13,7 @@ module.exports = () => {
    });
 
    passport.deserializeUser((id, done) => {
-      models.Teacher.findOne({ where: { id } })
+      models.User.findOne({ where: { id } })
          .then(user => done(null, user))
          .catch(err => done(err));
    }); 

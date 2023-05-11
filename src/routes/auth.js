@@ -16,8 +16,8 @@ router.post('/join', isNotLoggedIn, async (req, res, next) => {
 
    try {
       // 기존에 이메일로 가입한 사람이 있나 검사 (중복 가입 방지)
-      const exTeacher = await models.Teacher.findOne({ where: { email } });
-      if (exTeacher) {
+      const exUser = await models.User.findOne({ where: { email } });
+      if (exUser) {
          return res.redirect('/join?error=exist'); // 에러페이지로 바로 리다이렉트
       }
 
@@ -25,7 +25,7 @@ router.post('/join', isNotLoggedIn, async (req, res, next) => {
       const hash = await bcrypt.hash(password, 12);
 
       // DB에 해당 회원정보 생성
-      await models.Teacher.create({
+      await models.User.create({
          email,
          password: hash, // 비밀번호에 해시문자를 넣어준다.
       });

@@ -24,7 +24,7 @@ module.exports = () => {
          async (email, password, done) => {
             try {
                // 가입된 회원인지 아닌지 확인
-               const exUser = await models.Teacher.findOne({ where: { email } });
+               const exUser = await models.User.findOne({ where: { email } });
                // 만일 가입된 회원이면
                if (exUser) {
                   // 해시비번을 비교
