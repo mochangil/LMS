@@ -124,6 +124,28 @@ const updateTeacher = async (req,res,next) => {
     }
 }
 
+const deleteTeacher = async (req,res,next) => {
+    try{
+        const myId = req.body.id;
+        const myName = req.body.name;
+        console.log(myId)
+        // const name = req.params.name;
+        await models.Teacher.destroy({
+            where: {
+                id: myId
+            }
+        });
+        await models.User.destroy({
+            where: {
+                id:myId
+            }
+        });
+        res.send("delete ok")
+    }catch(err){
+        next(err)
+    }
+}
+
 const getStudents = async (req,res,next) =>{
     try{
         const student = await models.Student.findAll();
@@ -190,6 +212,7 @@ module.exports = {
     createTeacher,
     getTeacher,
     updateTeacher,
+    deleteTeacher,
     getStudent,
     createStudent,
     getStudents,

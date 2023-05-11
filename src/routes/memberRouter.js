@@ -4,10 +4,10 @@ const {memberController} = require('../controllers')
 
 router.get("/",memberController.getUsers)
 router.get("/teachers", memberController.getTeachers)
-// router.get("/teachers/:id", memberController.getTeacher)
+router.get("/teachers/:id", memberController.getTeacher)
 router.post("/teachers/create", memberController.createTeacher)
 router.post("/teachers/update", memberController.updateTeacher)
-// router.post("/teachers/delete", memberController.deleteTeacher)
+router.post("/teachers/delete", memberController.deleteTeacher)
 
 // router.post("/teachers/:id", memberController.)
 router.get("/students", memberController.getStudents)
