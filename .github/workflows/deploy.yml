@@ -36,14 +36,14 @@ jobs:
           cat << EOF >> .env
           ${{ secrets.ENV }}
 
-      - name: build server files
-        working-directory: ./
-        run: |
-          npm install
-          npm run build
+      # - name: build server files
+      #   working-directory: ./
+      #   run: |
+      #     npm install
+      #     npm run build
         
       - name: zip file
-        run: zip -r lms.zip ./scripts ./appspec.yml ./config ./src ./sequelizerc ./app.js ./dist
+        run: zip -r lms.zip . -x '*.git*'
 
       
       - name: AWS configure credentials
