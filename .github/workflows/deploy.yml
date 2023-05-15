@@ -43,7 +43,7 @@ jobs:
           npm run build
         
       - name: zip file
-        run: zip -r lms.zip  . -x "*.git*"
+        run: zip -r lms.zip ./scripts ./appspec.yml ./config ./src ./sequelizerc ./app.js ./dist
 
       
       - name: AWS configure credentials
