@@ -6,6 +6,7 @@ const path = require('path');
 const dotenv = require('dotenv');
 const session = require('express-session')
 const morgan = require('morgan')
+const cors = requrie('cors')
 const cookieParser = require('cookie-parser')
 const passport = require('passport');
 const passportConfig = require('./src/passport')
@@ -37,6 +38,7 @@ app.use(session({
 app.use(
     //Request 방식 등 log
     morgan('dev'),
+    cors(),
     //현재 directory와 명시해준'public'의 directory를 동일시하게 취급한다.
     express.json(),
     express.urlencoded({ extended: false }),
