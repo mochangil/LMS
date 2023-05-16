@@ -16,3 +16,7 @@ hooks:
     - location: scripts/after-deploy.sh
       timeout: 180
       runas: ubuntu
+  ApplicationStart:
+    - location: scripts/app-start.sh
+      timeout: 150
+      runas: ubuntu
