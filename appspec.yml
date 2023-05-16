@@ -12,9 +12,9 @@ permissions:
     group: ubuntu
 
 hooks:
-  ApplicationStop:
-    - location: scripts/app-stop.sh
-      timeout: 50
+  # ApplicationStop:
+  #   - location: scripts/app-stop.sh
+  #     timeout: 50
   AfterInstall:
     - location: scripts/after-deploy.sh
       timeout: 180
