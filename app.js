@@ -15,7 +15,7 @@ const indexRouter = require('./src/routes');
 dotenv.config();
 passportConfig();
 
-models.sequelize.sync().then(()=> {console.log('connected database')}).catch(err => {console.err('occurred error in database connecting ',err)});
+models.sequelize.sync().then(()=> {console.log('connected database')}).catch(err => {console.error('occurred error in database connecting ',err)});
 
 app.set('port', process.env.PORT || 3000);
 
