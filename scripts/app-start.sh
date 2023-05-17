@@ -1,4 +1,4 @@
 #!/bin/bash
 cd /home/ubuntu/lms
 npm install
-npm start
+nohup npm start > /dev/null 2>&1 &
