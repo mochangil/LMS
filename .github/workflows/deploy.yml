@@ -36,15 +36,15 @@ jobs:
           cat << EOF >> .env
           ${{ secrets.ENV }}
 
-      - name: build server files
-        working-directory: ./
-        run: |
-          npm install
-          npm run build
+      # - name: build server files
+      #   working-directory: ./
+      #   run: |
+      #     npm install
+      #     npm run build
         
       - name: zip file
-        run: zip -r lms.zip  . -x "*.git*"
-
+        run: zip -r lms.zip . -x '*.git*'
+ 
       
       - name: AWS configure credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -60,5 +60,5 @@ jobs:
         run: aws deploy create-deployment
           --application-name lms-project-backend-codedeploy
           --deployment-config-name CodeDeployDefault.OneAtATime
-          --deployment-group-name deploy-group
+          --deployment-group-name GROUP
           --s3-location bucket=lms-project-backend-s3,bundleType=zip,key=deploy/lms.zip

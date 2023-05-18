@@ -6,6 +6,7 @@ const path = require('path');
 const dotenv = require('dotenv');
 const session = require('express-session')
 const morgan = require('morgan')
+const cors = require('cors')
 const cookieParser = require('cookie-parser')
 const passport = require('passport');
 const passportConfig = require('./src/passport')
@@ -15,7 +16,7 @@ const indexRouter = require('./src/routes');
 dotenv.config();
 passportConfig();
 
-models.sequelize.sync().then(()=> {console.log('connected database')}).catch(err => {console.err('occurred error in database connecting ',err)});
+models.sequelize.sync().then(()=> {console.log('connected database')}).catch(err => {console.error('occurred error in database connecting ',err)});
 
 app.set('port', process.env.PORT || 3000);
 
@@ -37,6 +38,7 @@ app.use(session({
 app.use(
     //Request 방식 등 log
     morgan('dev'),
+    cors(),
     //현재 directory와 명시해준'public'의 directory를 동일시하게 취급한다.
     express.json(),
     express.urlencoded({ extended: false }),

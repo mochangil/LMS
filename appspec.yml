@@ -1,0 +1,24 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /home/ubuntu/lms
+    overwrite: yes
+
+permissions:
+  - object: /home/ubuntu
+    pattern: '**'
+    owner: ubuntu
+    group: ubuntu
+
+hooks:
+  # ApplicationStop:
+  #   - location: scripts/app-stop.sh
+  #     timeout: 50
+  AfterInstall:
+    - location: scripts/after-deploy.sh
+      timeout: 180
+      runas: ubuntu
+  ApplicationStart:
+    - location: scripts/app-start.sh
+      timeout: 30
