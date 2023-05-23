@@ -105,8 +105,13 @@ router.get(
       //    console.log(`key: ${a} // value: ${t[a]}`);
       // }
       console.log(id)
-      //redirect url
-      res.redirect('http://localhost:3000/members/teachers?id='+id+'&role='+role);
+      qJson = {
+         "id" : id,
+         "role" : role
+      }
+      //redirect url (수정 필요)
+      // res.redirect('http://localhost:3000/members/teachers?id='+id+'&role='+role);
+      res.send(qJson);
    },
 );
 
