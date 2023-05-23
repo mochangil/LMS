@@ -1,6 +1,7 @@
 //app.js 파일에선, middle ware 처리, 전체적인 routing 처리
 const express = require('express');
 const models = require('./src/database/models/index')
+const bodyParser = require('body-parser');
 const app = express();
 const path = require('path');
 const dotenv = require('dotenv');
@@ -26,7 +27,7 @@ app.use(session({
     secret: process.env.COOKIE_SECRET,
     cookie: {
         httpOnly: true,
-        secure: false,
+        secure: true,
     },
 }))
 
@@ -44,6 +45,7 @@ app.use(
     express.urlencoded({ extended: false }),
     //쿠키정보를 request 객체에 보기 쉬운 형태로 만들어 넘겨준다.
     cookieParser(process.env.COOKIE_SECRET),
+    bodyParser.json(),
     passport.initialize(),
     passport.session()
 );

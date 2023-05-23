@@ -69,6 +69,7 @@ router.post('/login', isNotLoggedIn, (req, res, next) => {
             return next(loginError);
          }
          // done(null, user)로 로직이 성공적이라면, 세션에 사용자 정보를 저장해놔서 로그인 상태가 된다.
+         console.log("login finished")
          return res.redirect('/');
       });
    })(req, res, next); //! 미들웨어 내의 미들웨어에는 콜백을 실행시키기위해 (req, res, next)를 붙인다.
@@ -93,12 +94,19 @@ router.get('/logout', isLoggedIn, (req, res) => {
 //* 구글로 로그인하기 라우터 ***********************
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] })); // 프로파일과 이메일 정보를 받는다.
 
-//? 위에서 구글 서버 로그인이 되면, 네이버 redirect url 설정에 따라 이쪽 라우터로 오게 된다. 인증 코드를 박게됨
+//? 위에서 구글 서버 로그인이 되면, redirect url 설정에 따라 이쪽 라우터로 오게 된다. 인증 코드를 박게됨
 router.get(
    '/google/callback',
    passport.authenticate('google', { failureRedirect: '/' }), //? 그리고 passport 로그인 전략에 의해 googleStrategy로 가서 구글계정 정보와 DB를 비교해서 회원가입시키거나 로그인 처리하게 한다.
-   (req, res) => {
-      res.redirect('/');
+   async (req, res) => {
+      const id = await req.user.dataValues.id;
+      const role = await req.user.dataValues.role;
+      // for(let a in t){
+      //    console.log(`key: ${a} // value: ${t[a]}`);
+      // }
+      console.log(id)
+      //redirect url
+      res.redirect('http://localhost:3000/members/teachers?id='+id+'&role='+role);
    },
 );
 

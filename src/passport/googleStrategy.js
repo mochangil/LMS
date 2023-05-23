@@ -36,8 +36,10 @@ module.exports = () => {
                      name: profile.name['familyName']+profile.name['givenName'],
                      snsId: profile.id,
                      provider: 'google',
+                     role: 'undefined'
                   });
                   done(null, newUser); // 회원가입하고 로그인 인증 완료
+                  
                }
             } catch (error) {
                console.error(error);

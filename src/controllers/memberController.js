@@ -85,9 +85,16 @@ const createTeacher = async (req,res,next) =>{
             phoneNumber: req.body.phoneNumber,
             snsId: user.snsId,
             provider: user.provider,
-            academy_id: req.body.academy_id
+            academy_id: req.body.academy_id,
+            role: "Teacher"
         })
         await newTeacher.save();
+        
+        user.set({
+            role: "Teacher"
+        })
+        await user.save();
+        
         res.send(newTeacher);
     } catch (err){
         next(err);
@@ -170,9 +177,10 @@ const createStudent = async (req,res,next) =>{
             snsId: user.snsId,
             provider: user.provider,
             classroom_id: req.body.classroom_id,
-            academy_id: req.body.academy_id,
+            academy_id: req.body.academy_id
         })
         await student.save();
+        
         res.send(student);
     } catch (err){
         next(err);
