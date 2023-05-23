@@ -3,7 +3,8 @@ const models = require('../database/models');
 const getClassrooms = async (req,res,next) =>{
     try{
         const Classrooms = await models.Classroom.findAll({
-            attributes: ['id','name','academy_id','teacher_id']
+            attributes: ['id','name','academy_id','teacher_id'],
+            where: req.query
         });
         res.send(Classrooms);
     } catch(err){
@@ -11,23 +12,6 @@ const getClassrooms = async (req,res,next) =>{
     }
 
 };
-
-const getClassroom = async (req,res,next) => {
-    try{
-        const myId = req.params.id;
-        console.log(myId);
-        const myName = req.params.name;
-        const Classroom = await models.Classroom.findOne({
-            attributes: ['id','name','academy_id','teacher_id'],
-            where: {
-                id : myId
-            } 
-        });
-        res.send(Classroom);
-    }catch(err){
-        next(err)
-    }
-}
 
 const createClassroom = async (req,res,next) => {
     try{
@@ -67,7 +51,6 @@ const deleteClassroom = async (req,res,next) => {
 
 module.exports = {
     getClassrooms,
-    getClassroom,
     createClassroom,
     deleteClassroom,
 };
