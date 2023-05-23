@@ -2,9 +2,12 @@ const models = require('../database/models');
 
 const getLectures = async (req,res,next) =>{
     try{
-        console.log("wow")
-        const lectures = await models.Lecture.findAll({
-             attributes: ['id','title','link','classroom_id','createdAt','updatedAt']
+        qKeys = Object.keys(req.query);
+        qValues = Object.values(req.query);
+        console.log(qKeys.length);
+        var lectures = await models.Lecture.findAll({
+            attributes: ['id','title','link','classroom_id','createdAt','updatedAt'],
+            where: req.query,
         });
         res.send(lectures);
     } catch(err){
@@ -12,23 +15,6 @@ const getLectures = async (req,res,next) =>{
     }
 
 };
-
-const getLecture = async (req,res,next) => {
-    try{
-        const myId = req.params.id;
-        console.log(myId);
-        const myName = req.params.name;
-        const Lecture = await models.Lecture.findOne({
-            attributes: ['id','title','link','classroom_id','createdAt','updatedAt'],
-            where: {
-                id : myId
-            } 
-        });
-        res.send(Lecture);
-    }catch(err){
-        next(err)
-    }
-}
 
 const createLecture = async (req,res,next) => {
     try{
@@ -70,7 +56,6 @@ const deleteLecture = async (req,res,next) => {
 
 module.exports = {
     getLectures,
-    getLecture,
     createLecture,
     deleteLecture,
 };
