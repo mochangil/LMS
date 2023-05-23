@@ -24,6 +24,9 @@ module.exports = {
       provider: {
         type: Sequelize.STRING
       },
+      role: {
+        type: Sequelize.STRING
+      },
     });
   },
   async down(queryInterface, Sequelize) {
