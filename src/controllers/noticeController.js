@@ -4,7 +4,8 @@ const getNotices = async (req,res,next) =>{
     try{
         console.log("wow")
         const notices = await models.Notice.findAll({
-             attributes: ['id','context','endDate','classroom_id','createdAt','updatedAt']
+             attributes: ['id','context','endDate','classroom_id','createdAt','updatedAt'],
+             where: req.query,
         });
         res.send(notices);
     } catch(err){
@@ -12,23 +13,6 @@ const getNotices = async (req,res,next) =>{
     }
 
 };
-
-const getNotice = async (req,res,next) => {
-    try{
-        const myId = req.params.id;
-        console.log(myId);
-        const myName = req.params.name;
-        const Notice = await models.Notice.findOne({
-            attributes: ['id','context','endDate','classroom_id','createdAt','updatedAt'],
-            where: {
-                id : myId
-            } 
-        });
-        res.send(Notice);
-    }catch(err){
-        next(err)
-    }
-}
 
 const createNotice = async (req,res,next) => {
     try{
@@ -70,7 +54,6 @@ const deleteNotice = async (req,res,next) => {
 
 module.exports = {
     getNotices,
-    getNotice,
     createNotice,
     deleteNotice,
 };
