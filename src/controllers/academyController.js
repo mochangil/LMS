@@ -2,7 +2,9 @@ const models = require('../database/models');
 
 const getAcademies = async (req,res,next) =>{
     try{
-        const academies = await models.Academy.findAll();
+        const academies = await models.Academy.findAll({
+            where:req.query
+        });
         res.send(academies);
     } catch(err){
         next(err)
@@ -10,20 +12,6 @@ const getAcademies = async (req,res,next) =>{
 
 };
 
-const getAcademy = async (req,res,next) => {
-    try{
-        const myId = req.params.id;
-        const myName = req.params.name;
-        const academy = await models.Academy.findOne({
-            where: {
-                id : myId
-            }
-        });
-        res.send(academy);
-    }catch(err){
-        next(err)
-    }
-}
 
 const createAcademy = async (req,res,next) => {
     try{
@@ -63,7 +51,6 @@ const deleteAcademy = async (req,res,next) => {
 
 module.exports = {
     getAcademies,
-    getAcademy,
     createAcademy,
     deleteAcademy,
 };

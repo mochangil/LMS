@@ -22,7 +22,8 @@ module.exports = (sequelize, DataTypes) => {
     password: DataTypes.STRING,
     name: DataTypes.STRING,
     snsId: DataTypes.STRING,
-    provider: DataTypes.STRING
+    provider: DataTypes.STRING,
+    role: DataTypes.STRING,
     // academy_id: DataTypes.STRING
   }, {
     sequelize,
