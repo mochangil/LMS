@@ -3,6 +3,8 @@ const express = require('express');
 const models = require('./src/database/models/index')
 const bodyParser = require('body-parser');
 const app = express();
+const swaggerFile = require('./src/swagger/swagger-output.json');
+const swaggerUi = require('swagger-ui-express')
 const path = require('path');
 const dotenv = require('dotenv');
 const session = require('express-session')
@@ -51,6 +53,7 @@ app.use(
 );
 
 app.use('/', indexRouter);
+app.use('/swagger',swaggerUi.serve, swaggerUi.setup(swaggerFile, {explorer: true}));
 
 app.listen(app.get('port'), () => {
     console.log(app.get('port'), 'app is listening at port 3000!');

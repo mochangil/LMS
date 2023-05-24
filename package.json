@@ -4,7 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app"
+    "start": "nodemon app",
+    "prestart": "node ./src/swagger/swagger.js"
   },
   "author": "",
   "license": "ISC",
@@ -34,6 +35,7 @@
     "passport-local": "^1.0.0",
     "path": "^0.12.7",
     "sequelize": "^6.31.0",
-    "session": "^0.1.0"
+    "session": "^0.1.0",
+    "swagger-autogen": "^2.23.1"
   }
 }
