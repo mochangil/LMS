@@ -6,7 +6,7 @@ router.get("/",memberController.getUsers)
 
 
 router.get("/teachers", memberController.getTeachers)
-router.post("/teachers/create", memberController.createTeacher)
+router.post("/teachers", memberController.createTeacher)
 router.post("/teachers/update", memberController.updateTeacher)
 router.post("/teachers/delete", memberController.deleteTeacher)
 

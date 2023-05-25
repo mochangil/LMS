@@ -1,5 +1,10 @@
 const models = require('../database/models');
 
+function findUserById(myId){
+    return models.User.findOne({where:{id:myId}})
+}
+
+
 const getUsers = async (req,res,next) =>{
     try{
         const users = await models.User.findAll({
@@ -13,6 +18,7 @@ const getUsers = async (req,res,next) =>{
 
 const getTeachers = async (req,res,next) =>{
     try{
+        console.log(req);
         var teachers = await models.Teacher.findAll({
             where:req.query
         });

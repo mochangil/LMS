@@ -1,8 +1,9 @@
-//app.js 파일에선, middle ware 처리, 전체적인 routing 처리
 const express = require('express');
 const models = require('./src/database/models/index')
 const bodyParser = require('body-parser');
 const app = express();
+const swaggerFile = require('./src/swagger/swagger-output.json');
+const swaggerUi = require('swagger-ui-express')
 const path = require('path');
 const dotenv = require('dotenv');
 const session = require('express-session')
@@ -11,10 +12,23 @@ const cors = require('cors')
 const cookieParser = require('cookie-parser')
 const passport = require('passport');
 const passportConfig = require('./src/passport')
-//index 파일을 불러오지 않았음에도 index를 최우선으로 찾아 시행
+// const MySQLStore = require("express-mysql-session")(session);
+// const jwtOptions = {jwtFrom}
 const indexRouter = require('./src/routes');
 
-dotenv.config();
+
+
+
+// const sessionOptions = {
+//     host: "localhost",
+//     port: 3306,
+//     user: "root",
+//     password: "ahckddlf1234",
+//     database: "session_test",
+// };
+// const sessionStore = new MySQLStore(sessionOptions);
+dotenv.config(); 
+
 passportConfig();
 
 models.sequelize.sync().then(()=> {console.log('connected database')}).catch(err => {console.error('occurred error in database connecting ',err)});
@@ -22,28 +36,22 @@ models.sequelize.sync().then(()=> {console.log('connected database')}).catch(err
 app.set('port', process.env.PORT || 3000);
 
 app.use(session({
-    resave: false,
-    saveUninitialized: false,
     secret: process.env.COOKIE_SECRET,
     cookie: {
+        maxAge : 60*60*1000,
         httpOnly: true,
         secure: true,
     },
+    resave: false,
+    saveUninitialized: false,
+    // store: sessionStore, //session store이 필수적인가
 }))
 
-//javascript 쉬운 함수 호출법 (param1, parma2) => {return될 값}
-//router
-//app.get, post, put 등등
-//app.use는 일단 무조건 실행 - 주로 미들웨어 역할을 수행
-//request 객체를 받고, request를 만지기 쉬운 형태로 바꾸어 다음 get 등이 받게끔 해준다.
 app.use(
-    //Request 방식 등 log
     morgan('dev'),
     cors(),
-    //현재 directory와 명시해준'public'의 directory를 동일시하게 취급한다.
     express.json(),
     express.urlencoded({ extended: false }),
-    //쿠키정보를 request 객체에 보기 쉬운 형태로 만들어 넘겨준다.
     cookieParser(process.env.COOKIE_SECRET),
     bodyParser.json(),
     passport.initialize(),
@@ -51,6 +59,7 @@ app.use(
 );
 
 app.use('/', indexRouter);
+app.use('/swagger',swaggerUi.serve, swaggerUi.setup(swaggerFile, {explorer: true}));
 
 app.listen(app.get('port'), () => {
     console.log(app.get('port'), 'app is listening at port 3000!');

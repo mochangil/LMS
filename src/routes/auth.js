@@ -2,12 +2,19 @@ const express = require('express');
 const passport = require('passport');
 const bcrypt = require('bcrypt');
 const { isLoggedIn, isNotLoggedIn } = require('./middlewares'); // 내가 만든 사용자 미들웨어
+const JWTStrategy = require('passport-jwt').Strategy;
+const ExtractJWT = require('passport-jwt').ExtractJwt;
+const jwt = require("jsonwebtoken");
 // const User = require('../models/user');
 const models = require('../database/models');
 const Teacher = require('../database/models/teacher');
 const Student = require('../database/models/student');
 
+const env = process.env;
+
 const router = express.Router();
+
+
 
 //* 회원 가입
 // 사용자 미들웨어 isNotLoggedIn을 통과해야 async (req, res, next) => 미들웨어 실행
@@ -97,21 +104,31 @@ router.get('/google', passport.authenticate('google', { scope: ['profile', 'emai
 //? 위에서 구글 서버 로그인이 되면, redirect url 설정에 따라 이쪽 라우터로 오게 된다. 인증 코드를 박게됨
 router.get(
    '/google/callback',
-   passport.authenticate('google', { failureRedirect: '/' }), //? 그리고 passport 로그인 전략에 의해 googleStrategy로 가서 구글계정 정보와 DB를 비교해서 회원가입시키거나 로그인 처리하게 한다.
+   passport.authenticate('google', { failureRedirect: '/auth/google' }), //? 그리고 passport 로그인 전략에 의해 googleStrategy로 가서 구글계정 정보와 DB를 비교해서 회원가입시키거나 로그인 처리하게 한다.
    async (req, res) => {
       const id = await req.user.dataValues.id;
       const role = await req.user.dataValues.role;
-      // for(let a in t){
-      //    console.log(`key: ${a} // value: ${t[a]}`);
-      // }
+      var token = await jwt.sign({
+         userid: id,
+         role: role,
+      },
+      env.JWT_SECRET,
+      {
+         subject: "GoogleLoginJwtToken",
+         expiresIn: '180m',
+         issuer: 'changil'
+      });
+      const strToken = await token.toString();
+      console.log("token=",strToken);
       console.log(id)
       qJson = {
          "id" : id,
          "role" : role
       }
+
       //redirect url (수정 필요)
-      // res.redirect('http://localhost:3000/members/teachers?id='+id+'&role='+role);
-      res.send(qJson);
+      // res.setHeader("token",token)
+      res.redirect('/'+token);
    },
 );
 
