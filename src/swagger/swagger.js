@@ -20,6 +20,7 @@ const options = {
     },
   },
 };
+
 const outputFile = './src/swagger/swagger-output.json';
 const endpointsFiles = ['./src/routes/index.js'];
 swaggerAutogen(outputFile, endpointsFiles, options);
