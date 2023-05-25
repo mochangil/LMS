@@ -660,11 +660,7 @@
       "get": {
         "description": "",
         "parameters": [],
-        "responses": {
-          "403": {
-            "description": "Forbidden"
-          }
-        }
+        "responses": {}
       }
     },
     "/auth/google": {
@@ -678,11 +674,7 @@
       "get": {
         "description": "",
         "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
+        "responses": {}
       }
     }
   },
