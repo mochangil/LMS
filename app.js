@@ -31,6 +31,11 @@ dotenv.config();
 
 passportConfig();
 
+const conrsOptions = {
+    credential : true,
+    origin : 'https://snclearning.kro.kr'
+}
+
 models.sequelize.sync().then(()=> {console.log('connected database')}).catch(err => {console.error('occurred error in database connecting ',err)});
 
 app.set('port', process.env.PORT || 3000);
