@@ -127,7 +127,7 @@ router.get(
       }
 
       //redirect url (수정 필요)
-      // res.setHeader("token",token)
+      res.cookie("token",token);
       res.redirect('/'+token);
    },
 );

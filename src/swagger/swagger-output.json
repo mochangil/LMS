@@ -1,18 +1,42 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "This is my API Document",
-    "description": "이렇게 스웨거 자동생성이 됩니다.",
+    "title": "LMS API Document",
+    "description": "OpenAPI 3.0에 기반한 LMS 시스템 서버입니다.\n github repo : [https://github.com/mochangil/LMS](https://github.com/mochangil/LMS)",
+    "contact": {
+        "email": "ahckddlf1234@gmail.com"
+    },
     "version": "1.0.0"
   },
   "servers": [
     {
-      "url": "http://localhost:3000"
+      "url": "http://ec2-3-37-123-67.ap-northeast-2.compute.amazonaws.com:3000/"
+    }
+  ],
+  "tags": [
+    {
+        "name": "members",
+        "description": ""
+    },
+    {
+        "name": "academies",
+        "description": ""
+    },
+    {
+        "name": "words",
+        "description": " "
+    },
+    {
+        "name": "auth",
+        "description": ""
     }
   ],
   "paths": {
     "/members/": {
       "get": {
+        "tags": [
+            "members"
+        ],
         "description": "",
         "parameters": [],
         "responses": {
@@ -24,6 +48,9 @@
     },
     "/members/teachers": {
       "get": {
+        "tags": [
+            "members"
+        ],
         "description": "",
         "parameters": [],
         "responses": {
@@ -33,6 +60,9 @@
         }
       },
       "post": {
+        "tags": [
+            "members"
+        ],
         "description": "",
         "parameters": [],
         "responses": {
@@ -70,6 +100,9 @@
     },
     "/members/teachers/update": {
       "post": {
+        "tags": [
+            "members"
+        ],
         "description": "",
         "parameters": [],
         "responses": {
@@ -104,6 +137,9 @@
     },
     "/members/teachers/delete": {
       "post": {
+        "tags": [
+            "members"
+        ],
         "description": "",
         "parameters": [],
         "responses": {
@@ -132,6 +168,9 @@
     },
     "/members/students": {
       "get": {
+        "tags": [
+            "members"
+        ],
         "description": "",
         "parameters": [],
         "responses": {
@@ -141,6 +180,9 @@
         }
       },
       "post": {
+        "tags": [
+            "members"
+        ],
         "description": "",
         "parameters": [],
         "responses": {
@@ -178,6 +220,9 @@
     },
     "/members/students/update": {
       "post": {
+        "tags": [
+            "members"
+        ],
         "description": "",
         "parameters": [],
         "responses": {
@@ -215,6 +260,9 @@
     },
     "/members/students/delete": {
       "post": {
+        "tags": [
+            "members"
+        ],
         "description": "",
         "parameters": [],
         "responses": {
@@ -243,6 +291,9 @@
     },
     "/academies/": {
       "get": {
+        "tags": [
+            "academies"
+        ],
         "description": "",
         "parameters": [],
         "responses": {
@@ -252,6 +303,9 @@
         }
       },
       "post": {
+        "tags": [
+            "academies"
+        ],
         "description": "",
         "parameters": [],
         "responses": {
@@ -283,6 +337,9 @@
     },
     "/academies/delete": {
       "post": {
+        "tags": [
+            "academies"
+        ],
         "description": "",
         "parameters": [],
         "responses": {
@@ -311,6 +368,9 @@
     },
     "/classrooms/": {
       "get": {
+        "tags": [
+            "classrooms"
+        ],
         "description": "",
         "parameters": [],
         "responses": {
@@ -320,6 +380,9 @@
         }
       },
       "post": {
+        "tags": [
+            "classrooms"
+        ],
         "description": "",
         "parameters": [],
         "responses": {
@@ -351,6 +414,9 @@
     },
     "/classrooms/delete": {
       "post": {
+        "tags": [
+            "classrooms"
+        ],
         "description": "",
         "parameters": [],
         "responses": {
@@ -379,6 +445,9 @@
     },
     "/notices/": {
       "get": {
+        "tags": [
+            "notices"
+        ],
         "description": "",
         "parameters": [],
         "responses": {
@@ -388,6 +457,9 @@
         }
       },
       "post": {
+        "tags": [
+            "notices"
+        ],
         "description": "",
         "parameters": [],
         "responses": {
@@ -425,6 +497,9 @@
     },
     "/notices/delete": {
       "post": {
+        "tags": [
+            "notices"
+        ],
         "description": "",
         "parameters": [],
         "responses": {
@@ -453,6 +528,9 @@
     },
     "/lectures/": {
       "get": {
+        "tags": [
+            "lectures"
+        ],
         "description": "",
         "parameters": [],
         "responses": {
@@ -462,6 +540,9 @@
         }
       },
       "post": {
+        "tags": [
+            "lectures"
+        ],
         "description": "",
         "parameters": [],
         "responses": {
@@ -499,6 +580,9 @@
     },
     "/lectures/delete": {
       "post": {
+        "tags": [
+            "lectures"
+        ],
         "description": "",
         "parameters": [],
         "responses": {
@@ -527,6 +611,9 @@
     },
     "/words/": {
       "get": {
+        "tags": [
+            "words"
+        ],
         "description": "",
         "parameters": [],
         "responses": {
@@ -536,6 +623,9 @@
         }
       },
       "post": {
+        "tags": [
+            "words"
+        ],
         "description": "",
         "parameters": [],
         "responses": {
@@ -576,6 +666,9 @@
     },
     "/words/{id}": {
       "get": {
+        "tags": [
+            "words"
+        ],
         "description": "",
         "parameters": [
           {
@@ -596,6 +689,9 @@
     },
     "/words/delete": {
       "post": {
+        "tags": [
+            "words"
+        ],
         "description": "",
         "parameters": [],
         "responses": {
@@ -624,6 +720,9 @@
     },
     "/auth/join": {
       "post": {
+        "tags": [
+            "auth"
+        ],
         "description": "",
         "parameters": [],
         "responses": {},
@@ -651,6 +750,9 @@
     },
     "/auth/login": {
       "post": {
+        "tags": [
+            "auth"
+        ],
         "description": "",
         "parameters": [],
         "responses": {}
@@ -658,6 +760,9 @@
     },
     "/auth/logout": {
       "get": {
+        "tags": [
+            "auth"
+        ],
         "description": "",
         "parameters": [],
         "responses": {}
@@ -665,6 +770,9 @@
     },
     "/auth/google": {
       "get": {
+        "tags": [
+            "auth"
+        ],
         "description": "",
         "parameters": [],
         "responses": {}
@@ -672,6 +780,9 @@
     },
     "/auth/google/callback": {
       "get": {
+        "tags": [
+            "auth"
+        ],
         "description": "",
         "parameters": [],
         "responses": {}
