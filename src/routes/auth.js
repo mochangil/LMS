@@ -128,7 +128,7 @@ router.get(
 
       //redirect url (수정 필요)
       res.cookie("token",token);
-      res.redirect('/'+token);
+      res.redirect('https://snclearning.kro.kr/Apply');
    },
 );
 
