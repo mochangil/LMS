@@ -10,17 +10,13 @@ const wordRouter = require('./wordRouter')
 const auth = require('./auth')
 const middlewares = require('./middlewares')
 
-// GET / 라우터
-// router.get('/', (req, res) => {
-//     res.sendFile('home.html', { root: path.join(__dirname, '../public/html') })
-// });
-
-router.use('/members',middlewares.isLoggedIn, memberRouter)
+// 현재 middleware 임시 제거
+router.use('/members', memberRouter)
 router.use('/academies', academyRouter)
-router.use("/classrooms", middlewares.isLoggedIn, classroomRouter);
-router.use("/notices", middlewares.isLoggedIn, noticeRouter);
-router.use("/lectures", middlewares.isLoggedIn, lectureRouter);
-router.use("/words", middlewares.isLoggedIn, wordRouter);
+router.use("/classrooms", classroomRouter);
+router.use("/notices", noticeRouter);
+router.use("/lectures", lectureRouter);
+router.use("/words", wordRouter);
 // router.post('/login', passport.authenticate('local', {successRedirect: '/', failureRedirect: '/login'}));
 router.use("/auth", auth);
 module.exports = router;

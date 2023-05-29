@@ -2,8 +2,8 @@ const swaggerAutogen = require('swagger-autogen')({ openapi: '3.0.0' });
 
 const options = {
   info: {
-    title: 'This is my API Document',
-    description: '이렇게 스웨거 자동생성이 됩니다.',
+    title: 'LMS API Document',
+    description: "LMS 시스템의 OpenAPI 3.0에 기반한 api 문서입니다.\n github repo : [https://github.com/mochangil/LMS](https://github.com/mochangil/LMS)",
   },
   servers: [
     {

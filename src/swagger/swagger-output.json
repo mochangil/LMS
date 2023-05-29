@@ -2,7 +2,7 @@
   "openapi": "3.0.0",
   "info": {
     "title": "LMS API Document",
-    "description": "OpenAPI 3.0에 기반한 LMS 시스템 서버입니다.\n github repo : [https://github.com/mochangil/LMS](https://github.com/mochangil/LMS)",
+    "description": "LMS 시스템의 OpenAPI 3.0에 기반한 api 문서입니다.\n github repo : [https://github.com/mochangil/LMS](https://github.com/mochangil/LMS)",
     "contact": {
         "email": "ahckddlf1234@gmail.com"
     },
@@ -10,25 +10,25 @@
   },
   "servers": [
     {
-      "url": "http://ec2-52-79-228-243.ap-northeast-2.compute.amazonaws.com:3000/"
+      "url": "http://localhost:3000"
     }
   ],
   "tags": [
     {
         "name": "members",
-        "description": ""
+        "description": "교사와 학생, 멤버에 관련된 api들입니다."
     },
     {
         "name": "academies",
-        "description": ""
+        "description": "학원 정보에 관련된 api들입니다."
     },
     {
         "name": "words",
-        "description": " "
+        "description": "단어시험을 위한 단어에 관련된 api들입니다."
     },
     {
         "name": "auth",
-        "description": ""
+        "description": "유저 인증에 관련된 api들입니다."
     }
   ],
   "paths": {
@@ -41,7 +41,7 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "All Users"
           }
         }
       }
