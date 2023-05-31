@@ -129,6 +129,12 @@ const createStudent = async (req,res,next) =>{
             academy_id: req.body.academy_id
         })
         await student.save();
+
+        
+        user.set({
+            role: "Student"
+        })
+        await user.save();
         
         res.send(student);
     } catch (err){
