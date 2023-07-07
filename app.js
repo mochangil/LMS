@@ -31,7 +31,7 @@ dotenv.config();
 
 passportConfig();
 
-const conrsOptions = {
+const corsOptions = {
     credential : true,
     origin : 'https://snclearning.kro.kr'
 }
